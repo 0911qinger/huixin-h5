@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一封回信，130年的新起点 · 天大青年学回信</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230D2B50'/%3E%3Crect x='12' y='18' width='40' height='30' rx='3' fill='none' stroke='%23D9B45B' stroke-width='2.5'/%3E%3Cpath d='M14 20 L32 36 L50 20' stroke='%23D9B45B' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg0:#081B33;
+  --bg1:#0D2B50;
+  --bg2:#12395F;
+  --ink:#EAF2FB;
+  --mut:#9DB8D4;
+  --gold:#D9B45B;
+  --gold2:#F0D9A0;
+  --paper:#F4EFE2;
+  --paper-ink:#2A3441;
+  --line:rgba(217,180,91,.35);
+  --card:rgba(18,57,95,.72);
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--sans);background:var(--bg0);color:var(--ink);-webkit-font-smoothing:antialiased}
+::selection{background:rgba(217,180,91,.35)}
+
+/* ===== 舞台 ===== */
+.deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  opacity:0;visibility:hidden;transform:translateY(6vh);transition:opacity .55s ease,transform .55s ease,visibility .55s}
+.slide.active{opacity:1;visibility:visible;transform:translateY(0)}
+.slide.prev{opacity:0;transform:translateY(-6vh)}
+.slide.next{opacity:0;transform:translateY(6vh)}
+
+/* 统一背景 */
+.slide{background:
+  radial-gradient(1100px 520px at 78% -6%, rgba(29,111,184,.28), transparent 60%),
+  radial-gradient(900px 480px at 12% 108%, rgba(201,162,39,.16), transparent 55%),
+  linear-gradient(160deg,var(--bg0),var(--bg1) 55%,var(--bg2))}
+.slide.paper-slide{background:
+  radial-gradient(900px 500px at 80% -10%, rgba(217,180,91,.28), transparent 55%),
+  linear-gradient(160deg,#F7F3E8,#EDE6D2)}
+.slide.paper-slide{color:var(--paper-ink)}
+.slide.paper-slide .kicker{color:#8A6A2A}
+.slide.paper-slide .sub{color:#6B7280}
+
+/* 页眉 */
+.kicker{position:absolute;top:max(24px,env(safe-area-inset-top));left:0;right:0;text-align:center;
+  font-size:12px;letter-spacing:.32em;color:var(--gold);opacity:.85;font-weight:600}
+.paper-slide .kicker{color:#8A6A2A}
+
+/* 内容容器 */
+.inner{width:min(88vw,560px);margin:0 auto;position:relative;z-index:2;
+  max-height:78dvh;display:flex;flex-direction:column;justify-content:center}
+.scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+  overscroll-behavior:contain;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+
+/* 入场：激活页内的元素依次浮现 */
+.slide .a{opacity:0;transform:translateY(22px)}
+.slide.active .a{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease}
+.slide.active .a1{transition-delay:.05s}.slide.active .a2{transition-delay:.18s}
+.slide.active .a3{transition-delay:.32s}.slide.active .a4{transition-delay:.46s}
+.slide.active .a5{transition-delay:.60s}.slide.active .a6{transition-delay:.74s}
+
+h1.title{font-family:var(--serif);font-size:clamp(30px,6.4vw,46px);line-height:1.32;font-weight:700;letter-spacing:.02em}
+h2.title{font-family:var(--serif);font-size:clamp(23px,4.8vw,34px);line-height:1.36;font-weight:700;margin-bottom:14px}
+.sub{color:var(--mut);font-size:14.5px;line-height:1.75;margin-top:12px}
+.paper-slide .sub{color:#5E6570}
+.gold{color:var(--gold)}
+.paper-slide .gold{color:#A97E2E}
+.divider{width:56px;height:2px;background:var(--gold);margin:18px 0;border-radius:2px;opacity:.9}
+.center{text-align:center;align-items:center}
+.center .divider{margin-left:auto;margin-right:auto}
+
+/* ===== 导航 ===== */
+.navbar{position:fixed;z-index:40;left:0;right:0;bottom:0;display:flex;justify-content:center;
+  padding:0 0 max(14px,env(safe-area-inset-bottom))}
+.navbar .ctrl{display:flex;align-items:center;gap:16px;
+  background:rgba(8,27,51,.66);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(217,180,91,.28);border-radius:999px;padding:8px 16px}
+.nav-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(217,180,91,.45);
+  background:transparent;color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.nav-btn:hover{background:rgba(217,180,91,.16)}
+.nav-btn:disabled{opacity:.25;cursor:default}
+.counter{font-size:13px;letter-spacing:.22em;color:var(--ink);min-width:76px;text-align:center;font-variant-numeric:tabular-nums}
+.counter b{color:var(--gold);font-size:16px;font-weight:700}
+.dots{position:fixed;z-index:40;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px}
+.dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(234,242,251,.28);cursor:pointer;padding:0;transition:.25s}
+.dots button.on{background:var(--gold);height:22px;border-radius:6px}
+.swipe-hint{position:absolute;bottom:74px;left:0;right:0;text-align:center;font-size:12px;letter-spacing:.3em;color:var(--mut);opacity:.75}
+
+/* ===== P1 封面 ===== */
+.hero-inner{align-items:center;text-align:center}
+.envelope{position:relative;width:min(190px,44vw);margin-bottom:6px}
+.envelope svg{width:100%;height:auto;overflow:visible}
+.env-stroke{fill:none;stroke:var(--gold);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.6s .25s ease forwards}
+.env-flap{fill:none;stroke:var(--gold2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:240;stroke-dashoffset:240;animation:draw 1s 1.15s ease forwards}
+.seal{opacity:0;transform:scale(.4);transform-origin:center;animation:pop .55s 1.75s cubic-bezier(.2,1.6,.4,1) forwards}
+.seal text{fill:var(--paper);font-family:var(--serif);font-size:30px;font-weight:700;text-anchor:middle}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{to{opacity:1;transform:scale(1)}}
+.hero-title{font-family:var(--serif);font-size:clamp(30px,7vw,52px);font-weight:700;line-height:1.3;letter-spacing:.04em;margin-top:18px}
+.hero-title .l1{display:block;opacity:0;animation:rise 1s .9s ease forwards}
+.hero-title .l2{display:block;opacity:0;animation:rise 1s 1.35s ease forwards}
+.hero-title .l3{display:block;font-size:.52em;color:var(--gold);margin-top:14px;font-weight:600;opacity:0;animation:rise 1s 1.8s ease forwards}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.hero-meta{opacity:0;animation:rise 1s 2.35s ease forwards;margin-top:26px;font-size:13px;letter-spacing:.3em;color:var(--mut)}
+.dust{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold2),var(--gold));
+  opacity:0;pointer-events:none;z-index:1;animation:floatUp linear infinite}
+@keyframes floatUp{0%{transform:translateY(20px) scale(.6);opacity:0}
+  12%{opacity:.8}88%{opacity:.55}100%{transform:translateY(-56vh) scale(1);opacity:0}}
+
+/* ===== P2 时间轴 ===== */
+.timeline{position:relative;margin-top:8px;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:10px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(var(--gold),rgba(217,180,91,.18))}
+.t-node{position:relative;padding:0 0 20px 0;cursor:pointer}
+.t-node:last-child{padding-bottom:4px}
+.t-node::before{content:"";position:absolute;left:-30px;top:5px;width:12px;height:12px;border-radius:50%;
+  background:var(--bg1);border:2px solid var(--gold);transition:.25s}
+.t-node.open::before{background:var(--gold);box-shadow:0 0 0 5px rgba(217,180,91,.18)}
+.t-year{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--gold)}
+.t-name{font-size:15px;font-weight:600;margin:2px 0 4px}
+.t-desc{font-size:13.5px;color:var(--mut);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .4s;opacity:0}
+.t-node.open .t-desc{max-height:120px;opacity:1}
+.t-node .t-tip{font-size:11.5px;color:var(--gold);opacity:.7;letter-spacing:.08em}
+.paper-slide .t-node::before{background:var(--paper);border-color:#A97E2E}
+.paper-slide .t-year{color:#A97E2E}
+.paper-slide .t-node.open::before{background:#A97E2E}
+
+/* ===== P3 信纸 ===== */
+.letter-wrap{position:relative;width:100%}
+.letter{background:var(--paper);color:var(--paper-ink);border-radius:8px;
+  box-shadow:0 18px 40px rgba(4,16,34,.45);padding:26px 24px 20px;
+  position:relative;cursor:pointer;transition:transform .35s}
+.letter:hover{transform:translateY(-2px)}
+.letter::before{content:"";position:absolute;top:0;left:14px;right:14px;height:2px;
+  background:linear-gradient(90deg,transparent,#A97E2E,transparent)}
+.letter .seal-ink{position:absolute;top:-14px;right:22px;width:46px;height:46px;border-radius:50%;
+  background:#A3261F;display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);color:#F7F3E8;font-size:18px;font-weight:700;
+  box-shadow:0 4px 12px rgba(120,30,24,.4);transform:rotate(8deg)}
+.letter h3{font-family:var(--serif);font-size:18px;margin-bottom:8px;color:#8A6A2A;letter-spacing:.12em}
+.letter p{font-size:14.5px;line-height:2;text-indent:2em}
+.letter .l-sig{text-align:right;font-family:var(--serif);font-size:15px;margin-top:14px;color:#8A6A2A;font-weight:700}
+.letter .l-more{display:inline-block;margin-top:10px;font-size:12.5px;color:#A97E2E;letter-spacing:.1em;border-bottom:1px dashed #A97E2E}
+.letter .l-body{max-height:0;overflow:hidden;transition:max-height .7s ease}
+.letter.open .l-body{max-height:320px}
+.letter .l-hint{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#8A6A2A;letter-spacing:.14em}
+.letter .l-arrow{transition:transform .35s}
+.letter.open .l-arrow{transform:rotate(180deg)}
+.letter .l-full{font-size:13.5px;color:#5E6570;margin-top:12px;line-height:1.8;border-top:1px dashed rgba(138,106,42,.35);padding-top:10px;text-indent:0}
+
+/* ===== P4 关键词卡片 ===== */
+.kw-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+.kw{background:var(--card);border:1px solid rgba(217,180,91,.24);border-radius:12px;padding:15px 18px;cursor:pointer;transition:.28s}
+.kw:hover{border-color:var(--gold)}
+.kw .kw-top{display:flex;align-items:center;gap:12px}
+.kw .kw-idx{font-family:var(--serif);font-size:20px;color:var(--gold);font-weight:700;min-width:30px}
+.kw .kw-name{font-size:16.5px;font-weight:700}
+.kw .kw-body{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s ease,opacity .4s, margin .3s}
+.kw.open .kw-body{max-height:160px;opacity:1;margin-top:10px}
+.kw .kw-body p{font-size:13.8px;color:var(--mut);line-height:1.85}
+.kw .kw-sign{font-size:11.5px;color:var(--gold);opacity:.75;letter-spacing:.1em}
+.paper-slide .kw{background:rgba(255,255,255,.55);border-color:rgba(169,126,46,.35)}
+.paper-slide .kw .kw-body p{color:#5E6570}
+
+/* ===== P5 洞见 ===== */
+.insight-quote{position:relative;font-family:var(--serif);font-size:clamp(17px,3.6vw,22px);line-height:2;font-weight:600}
+.insight-quote::before{content:"“";position:absolute;left:-8px;top:-6px;font-size:44px;color:var(--gold);opacity:.5}
+.insight-body{margin-top:14px;font-size:14.5px;line-height:2.05;color:var(--mut)}
+.paper-slide .insight-body{color:#5E6570}
+.insight-tag{display:inline-block;margin-top:16px;padding:7px 14px;border:1px solid var(--gold);border-radius:999px;
+  font-size:12.5px;letter-spacing:.12em;color:var(--gold)}
+
+/* ===== P6/P7 采访 ===== */
+.interview{display:flex;flex-direction:column;gap:16px;margin-top:8px}
+.itv{background:var(--card);border:1px solid rgba(217,180,91,.22);border-radius:14px;padding:18px;position:relative}
+.itv .ph-ava{width:54px;height:54px;border-radius:50%;border:1.5px dashed var(--gold);opacity:.75;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.itv .ph-ava svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.itv-head{display:flex;align-items:center;gap:14px}
+.itv .who{font-size:15px;font-weight:700}
+.itv .role{font-size:12px;color:var(--gold);letter-spacing:.06em;margin-top:3px}
+.itv .tag{position:absolute;top:16px;right:16px;font-size:10.5px;letter-spacing:.1em;color:var(--mut);
+  border:1px solid rgba(157,184,212,.4);padding:3px 8px;border-radius:999px}
+.itv .quote{margin-top:13px;font-size:14.5px;line-height:1.95;color:var(--ink)}
+.itv .quote::before{content:"“";color:var(--gold);font-size:20px;font-weight:700}
+.itv .quote::after{content:"”";color:var(--gold);font-size:20px;font-weight:700}
+.itv .note{font-size:11.5px;color:var(--mut);margin-top:10px;letter-spacing:.05em;opacity:.8}
+
+/* ===== P8 感悟 ===== */
+.feel-body{font-size:14.8px;line-height:2.05;color:var(--ink)}
+.feel-body p{margin-bottom:13px;text-indent:2em}
+.feel-body p:first-child{text-indent:0}
+.feel-body .hl{color:var(--gold);font-weight:600}
+.paper-slide .feel-body{color:#3A434F}
+
+/* ===== P9 行动 ===== */
+.act-list{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.act{display:flex;gap:14px;background:var(--card);border-left:3px solid var(--gold);border-radius:10px;padding:13px 16px;align-items:flex-start}
+.act .no{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--gold);line-height:1.2;min-width:30px}
+.act .at{font-size:15.5px;font-weight:700}
+.act .ad{font-size:13.2px;color:var(--mut);line-height:1.7;margin-top:4px}
+.paper-slide .act{background:rgba(255,255,255,.55)}
+
+/* ===== P10 结语 ===== */
+.finale .hero-title{margin-top:14px}
+.finale-note{margin-top:22px;font-size:12px;color:var(--mut);letter-spacing:.08em;line-height:1.9;opacity:.85}
+.finale-glow{position:absolute;inset:auto 0 12% 0;display:flex;justify-content:center;pointer-events:none}
+.finale-glow .envelope{width:110px;opacity:.9}
+
+/* ===== 桌面增强 ===== */
+@media (min-width:768px){
+  .inner{width:min(78vw,680px)}
+  .kw-grid{grid-template-columns:1fr 1fr}
+  .interview{flex-direction:row}
+  .itv{flex:1}
+  .act{flex:1}
+  .act-list{flex-direction:row;gap:13px}
+  .act{flex-direction:column;align-items:flex-start}
+  .act .no{margin-bottom:6px}
+  .dots{display:flex}
+}
+@media (max-width:767px){.dots{display:none}}
+
+/* ===== 低动效 ===== */
+@media (prefers-reduced-motion:reduce){
+  .env-stroke,.env-flap,.seal,.hero-title .l1,.hero-title .l2,.hero-title .l3,.hero-meta{animation:none;opacity:1}
+  .dust{display:none}
+  .slide,.slide.active,.slide.prev,.slide.next{transition:none}
+  .slide .a{opacity:1;transform:none;transition:none}
+  .kw .kw-body,.t-desc,.letter .l-body{transition:none}
+}
+</style>
+</head>
+<body>
+
+<main class="deck" id="deck">
+
+<!-- ===== P1 封面 ===== -->
+<section class="slide" id="p1" data-title="封面">
+  <div class="inner hero-inner">
+    <div class="envelope a a1" aria-hidden="true">
+      <svg viewBox="0 0 200 132">
+        <rect class="env-stroke" x="14" y="18" width="172" height="100" rx="6"/>
+        <path class="env-flap" d="M18 24 L100 84 L182 24"/>
+        <circle class="seal" cx="100" cy="88" r="26" fill="#A3261F" stroke="#D9B45B" stroke-width="2"/>
+        <text x="100" y="96" class="seal" style="opacity:0">信</text>
+      </svg>
+    </div>
+    <h1 class="hero-title">
+      <span class="l1">一封回信</span>
+      <span class="l2">130 年的新起点</span>
+      <span class="l3">学习贯彻习近平总书记给天津大学全体师生回信精神</span>
+    </h1>
+    <p class="hero-meta">天大青年实践队 · 学习实践作品</p>
+  </div>
+  <p class="swipe-hint">滑动开启 · 共 10 页</p>
+</section>
+
+<!-- ===== P2 缘起 · 时间轴 ===== -->
+<section class="slide" id="p2" data-title="缘起">
+  <div class="inner">
+    <p class="kicker">第一章 · 缘起</p>
+    <h2 class="title a a1">从北洋到天大<br><span class="gold">130 年兴学路</span></h2>
+    <div class="divider a a2"></div>
+    <div class="timeline a a3">
+      <div class="t-node" data-n="0">
+        <div class="t-year">1895</div>
+        <div class="t-name">北洋大学堂创办</div>
+        <span class="t-tip">点击展开</span>
+        <div class="t-desc">中国第一所现代大学在此诞生，"兴学强国"的初心就此落笔。</div>
+      </div>
+      <div class="t-node" data-n="1">
+        <div class="t-year">1951</div>
+        <div class="t-name">定名天津大学</div>
+        <span class="t-tip">点击展开</span>
+        <div class="t-desc">一脉相承、薪火相传，校名更迭，育人报国的使命始终未变。</div>
+      </div>
+      <div class="t-node" data-n="2">
+        <div class="t-year">2025.10.2</div>
+        <div class="t-name">百卅华诞 · 收到回信</div>
+        <span class="t-tip">点击展开</span>
+        <div class="t-desc">建校130周年之际，习近平总书记回信天津大学全体师生，勉励在新起点上再出发。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P3 回信 · 信纸 ===== -->
+<section class="slide paper-slide" id="p3" data-title="回信">
+  <div class="inner">
+    <p class="kicker">第二章 · 原声</p>
+    <h2 class="title a a1">一纸回信，<span class="gold">重若千钧</span></h2>
+    <div class="divider a a2"></div>
+    <div class="letter-wrap a a3">
+      <div class="letter" id="letter">
+        <div class="seal-ink">回信</div>
+        <h3>致天津大学全体师生</h3>
+        <p>天津大学全体师生：你们好！来信收悉。值此天津大学建校130周年之际，向全体师生员工、广大校友表示祝贺。</p>
+        <p class="l-more" id="letterHint"><span class="l-arrow" id="letterArrow">▼</span> 展开回信全文</p>
+        <div class="l-body" id="letterBody">
+          <p class="l-full">新起点上，希望你们坚持以新时代中国特色社会主义思想为指导，聚焦国家重大战略需求，深化教学科研改革，加强基础研究和科技攻关，提高人才培养质量，更好服务经济社会发展，为建设教育强国科技强国、推进中国式现代化作出新的贡献。</p>
+          <div class="l-sig">—— 习近平</div>
+        </div>
+      </div>
+    </div>
+    <p class="sub a a4">内容摘自新华社 2025 年 10 月 2 日电 · 回信原文</p>
+  </div>
+</section>
+
+<!-- ===== P4 关键词 ===== -->
+<section class="slide" id="p4" data-title="解读">
+  <div class="inner">
+    <p class="kicker">第三章 · 解码</p>
+    <h2 class="title a a1">四个关键词<br><span class="gold">读懂回信</span></h2>
+    <div class="divider a a2"></div>
+    <div class="kw-grid a a3">
+      <div class="kw" data-k="0">
+        <div class="kw-top"><span class="kw-idx">壹</span><span class="kw-name">聚焦国家重大战略需求</span><span class="kw-sign" style="margin-left:auto">点击展开</span></div>
+        <div class="kw-body"><p>把科研选题对准国家最需要的地方——面向世界科技前沿、经济主战场、国家重大需求，找到真问题、做真研究。</p></div>
+      </div>
+      <div class="kw" data-k="1">
+        <div class="kw-top"><span class="kw-idx">贰</span><span class="kw-name">深化教学科研改革</span><span class="kw-sign" style="margin-left:auto">点击展开</span></div>
+        <div class="kw-body"><p>以改革激发活力：创新人才培养模式，破除机制藩篱，让教学与科研在改革中相互成就。</p></div>
+      </div>
+      <div class="kw" data-k="2">
+        <div class="kw-top"><span class="kw-idx">叁</span><span class="kw-name">加强基础研究和科技攻关</span><span class="kw-sign" style="margin-left:auto">点击展开</span></div>
+        <div class="kw-body"><p>基础研究是根，科技攻关是果。坐得住冷板凳，啃得下硬骨头，把关键核心技术掌握在自己手中。</p></div>
+      </div>
+      <div class="kw" data-k="3">
+        <div class="kw-top"><span class="kw-idx">肆</span><span class="kw-name">提高人才培养质量</span><span class="kw-sign" style="margin-left:auto">点击展开</span></div>
+        <div class="kw-body"><p>为教育强国、科技强国建设输送拔尖创新人才——培养什么人、怎样培养人，是每一堂课都要回答的问题。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P5 洞见 ===== -->
+<section class="slide paper-slide" id="p5" data-title="洞见">
+  <div class="inner">
+    <p class="kicker">第四章 · 洞见</p>
+    <h2 class="title a a1">回信里，有一条<br><span class="gold">"匹配"的逻辑</span></h2>
+    <div class="divider a a2"></div>
+    <p class="insight-quote a a3">做推荐系统研究的人，每天琢磨一件事：如何把合适的内容，匹配给合适的人。</p>
+    <div class="insight-body a a4">
+      <p>读回信时我们忽然意识到，回信里也藏着一条"匹配"的逻辑——<span class="gold">把人才培养，精准匹配到国家重大战略需求上</span>。</p>
+      <p style="margin-top:10px">130 年前，北洋大学堂因"兴学强国"而生；130 年后，回信把"聚焦国家重大战略需求"写进天大人的新坐标。"匹配"不再只是算法里的术语，而是一种选择的方向感：选题时多问一句——这个问题，国家需不需要？</p>
+    </div>
+    <span class="insight-tag a a5">让每一份专业积累，对准国家真正需要的地方</span>
+  </div>
+</section>
+
+<!-- ===== P6 采访一 ===== -->
+<section class="slide" id="p6" data-title="访谈上">
+  <div class="inner">
+    <p class="kicker">第五章 · 访谈（上）</p>
+    <h2 class="title a a1">身边党员，<span class="gold">这样说</span></h2>
+    <div class="divider a a2"></div>
+    <div class="interview a a3">
+      <div class="itv">
+        <span class="tag">示例 · 采访后替换</span>
+        <div class="itv-head">
+          <div class="ph-ava"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></div>
+          <div><div class="who">王老师 · 教师党员</div><div class="role">学院教学一线 · 待补充姓名/单位</div></div>
+        </div>
+        <p class="quote">回信让我重新审视自己的课堂——培养什么人、怎样培养人，是每堂课都要认真回答的问题。</p>
+        <p class="note">此处替换为真实采访照片与金句</p>
+      </div>
+      <div class="itv">
+        <span class="tag">示例 · 采访后替换</span>
+        <div class="itv-head">
+          <div class="ph-ava"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></div>
+          <div><div class="who">李老师 · 科研人员党员</div><div class="role">实验室科研攻关 · 待补充姓名/单位</div></div>
+        </div>
+        <p class="quote">基础研究坐得住冷板凳，科技攻关才啃得下硬骨头——这是回信给科研人最直接的嘱咐。</p>
+        <p class="note">此处替换为真实采访照片与金句</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P7 采访二 ===== -->
+<section class="slide" id="p7" data-title="访谈下">
+  <div class="inner">
+    <p class="kicker">第五章 · 访谈（下）</p>
+    <h2 class="title a a1">青年一代，<span class="gold">接力答</span></h2>
+    <div class="divider a a2"></div>
+    <div class="interview a a3">
+      <div class="itv">
+        <span class="tag">示例 · 采访后替换</span>
+        <div class="itv-head">
+          <div class="ph-ava"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></div>
+          <div><div class="who">张同学 · 学生党员</div><div class="role">研究生科研一线 · 待补充姓名/学院</div></div>
+        </div>
+        <p class="quote">把论文写在祖国大地上——选题时多问一句国家需不需要，研究的价值感会完全不同。</p>
+        <p class="note">此处替换为真实采访照片与金句</p>
+      </div>
+      <div class="itv">
+        <span class="tag">示例 · 采访后替换</span>
+        <div class="itv-head">
+          <div class="ph-ava"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></div>
+          <div><div class="who">校友党员</div><div class="role">行业一线 · 待补充姓名/届别</div></div>
+        </div>
+        <p class="quote">无论走到哪里，天大人"兴学强国"的底色不会变——这是母校教给我们最珍贵的东西。</p>
+        <p class="note">此处替换为真实采访照片与金句</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P8 感悟 ===== -->
+<section class="slide paper-slide" id="p8" data-title="感悟">
+  <div class="inner" style="height:100%">
+    <p class="kicker">第六章 · 感悟</p>
+    <h2 class="title a a1">我们的理解</h2>
+    <div class="divider a a2"></div>
+    <div class="scroll a a3" style="flex:1;margin-top:4px">
+      <div class="feel-body">
+        <p>把回信读了三遍，我们讨论出一个共识：这封信不是在讲"天大已经做了什么"，而是在问"天大人接下来要做什么"。</p>
+        <p>第一遍，读到的是<span class="hl">方向</span>。"聚焦国家重大战略需求"九个字，把一所大学的科研、教学、育人，全部校准到同一个坐标上。第二遍，读到的是<span class="hl">方法</span>。"深化教学科研改革""加强基础研究和科技攻关"——改革是机制，攻关是姿态，基础研究是根，科技攻关是果，它们连成一条完整的路径。第三遍，读到的是<span class="hl">我们</span>。</p>
+        <p>作为管理科学与工程方向的研究生，我们日常打交道的是数据、算法与决策。回信让我们重新审视手里的课题：一项研究真正的价值，不只在于论文能否发表，更在于它是否回应了真实世界的需要。当我们在研究"如何精准匹配"时，也在一同思考另一种匹配——个人的专业积累与国家战略需求之间的匹配。</p>
+        <p>于是我们把理解落成了行动：支部集体精读原文，每人写下"我的一句话理解"；科研选题对照国家战略需求清单自查；走进实验室、走上讲台，采访身边优秀党员，听他们讲"把论文写在祖国大地上"的具体样子。</p>
+        <p>学习回信，最忌把精神停在纸面上。我们给自己立下三条规矩：<span class="hl">不背口号、不走过场、不留死角</span>——每一次学习，都要落到一个具体的动作上。这，就是我们理解的"新起点"。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P9 行动 ===== -->
+<section class="slide" id="p9" data-title="行动">
+  <div class="inner">
+    <p class="kicker">第七章 · 行动</p>
+    <h2 class="title a a1">我们的回答</h2>
+    <div class="divider a a2"></div>
+    <div class="act-list a a3">
+      <div class="act"><div class="no">01</div><div><div class="at">精读原文</div><div class="ad">支部集体研读回信全文，每人提炼"我的一句话理解"，汇成学习卡片</div></div></div>
+      <div class="act"><div class="no">02</div><div><div class="at">选题对齐</div><div class="ad">对照国家重大战略需求清单，自查科研选题方向，形成自查报告</div></div></div>
+      <div class="act"><div class="no">03</div><div><div class="at">访谈接续</div><div class="ad">完成教师、科研人员、学生党员、校友四类对象访谈，整理成采访手记</div></div></div>
+      <div class="act"><div class="no">04</div><div><div class="at">宣讲落地</div><div class="ad">面向低年级团支部开展一次"回信精神微宣讲"，用青年语言讲青年理解</div></div></div>
+      <div class="act"><div class="no">05</div><div><div class="at">成果发布</div><div class="ad">以本 H5 与图文推送双载体发布学习成果，留存学习档案</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P10 结语 ===== -->
+<section class="slide finale" id="p10" data-title="结语">
+  <div class="inner hero-inner">
+    <div class="envelope a a1" aria-hidden="true">
+      <svg viewBox="0 0 200 132">
+        <rect class="env-stroke" x="14" y="18" width="172" height="100" rx="6"/>
+        <path class="env-flap" d="M18 24 L100 84 L182 24"/>
+        <circle class="seal" cx="100" cy="88" r="26" fill="#A3261F" stroke="#D9B45B" stroke-width="2"/>
+        <text x="100" y="96" class="seal" style="opacity:0">信</text>
+      </svg>
+    </div>
+    <h2 class="title a a2">新起点上<br><span class="gold">我们的回答，是行动</span></h2>
+    <p class="sub a a3">把回信精神读进心里<br>把天大担当写进行动</p>
+    <p class="hero-meta a a4">天大青年实践队 · 2026 年 11 月</p>
+    <p class="finale-note a a5">内容引用新华社通稿；采访照片与实拍素材由实践队补充后替换<br>感谢观看 · 滑动回看</p>
+  </div>
+</section>
+
+</main>
+
+<!-- 导航 -->
+<div class="dots" id="dots"></div>
+<div class="navbar">
+  <div class="ctrl">
+    <button class="nav-btn" id="prevBtn" aria-label="上一页"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <span class="counter"><b id="curPage">01</b> / 10</span>
+    <button class="nav-btn" id="nextBtn" aria-label="下一页"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var TOTAL = slides.length;
+  var cur = 0;
+  var busy = false;
+  var dotsBox = document.getElementById("dots");
+  var curPage = document.getElementById("curPage");
+  var prevBtn = document.getElementById("prevBtn");
+  var nextBtn = document.getElementById("nextBtn");
+
+  /* 页码圆点 */
+  for (var i = 0; i < TOTAL; i++) {
+    (function(idx){
+      var b = document.createElement("button");
+      b.setAttribute("aria-label", "第" + (idx + 1) + "页");
+      b.addEventListener("click", function(){ go(idx); });
+      dotsBox.appendChild(b);
+    })(i);
+  }
+  var dots = Array.prototype.slice.call(dotsBox.children);
+
+  function setBusy(){
+    busy = true;
+    setTimeout(function(){ busy = false; }, 900);
+  }
+
+  function go(idx){
+    if (idx < 0 || idx >= TOTAL) return;
+    var prev = cur;
+    cur = idx;
+    slides.forEach(function(s, n){
+      s.classList.remove("active", "prev", "next");
+      if (n === cur) s.classList.add("active");
+      else if (n < cur) s.classList.add("prev");
+      else s.classList.add("next");
+    });
+    dots.forEach(function(d, n){ d.classList.toggle("on", n === cur); });
+    curPage.textContent = String(cur + 1).padStart(2, "0");
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = cur === TOTAL - 1;
+    try { history.replaceState(null, "", "#p" + (cur + 1)); } catch(e){}
+    document.title = slides[cur].getAttribute("data-title") + " · 一封回信，130年的新起点";
+  }
+
+  function next(){ if(cur < TOTAL - 1){ go(cur + 1); setBusy(); } }
+  function prev(){ if(cur > 0){ go(cur - 1); setBusy(); } }
+
+  prevBtn.addEventListener("click", prev);
+  nextBtn.addEventListener("click", next);
+
+  /* 滚轮翻页（内部滚动区除外） */
+  var wheelT = 0;
+  window.addEventListener("wheel", function(e){
+    if (busy) return;
+    var t = e.target.closest ? e.target.closest(".scroll") : null;
+    if (t && (t.scrollTop > 0 || e.deltaY < 0)) return;
+    var now = Date.now();
+    if (now - wheelT < 700) return;
+    wheelT = now;
+    if (e.deltaY > 0) next(); else prev();
+  }, { passive: true });
+
+  /* 触摸翻页 */
+  var touchY = null, touchX = null;
+  window.addEventListener("touchstart", function(e){
+    touchY = e.changedTouches[0].clientY;
+    touchX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  window.addEventListener("touchend", function(e){
+    if (busy || touchY === null) return;
+    var dy = e.changedTouches[0].clientY - touchY;
+    var dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dy) > 48 && Math.abs(dy) > Math.abs(dx) * 1.2) {
+      if (dy < 0) next(); else prev();
+    }
+    touchY = null; touchX = null;
+  }, { passive: true });
+
+  /* 键盘 */
+  window.addEventListener("keydown", function(e){
+    if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") { e.preventDefault(); next(); }
+    else if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); prev(); }
+    else if (e.key === "Home") { go(0); }
+    else if (e.key === "End") { go(TOTAL - 1); }
+  });
+
+  /* hash 变化（浏览器前进/后退、手动改地址）时同步翻页 */
+  window.addEventListener("hashchange", function(){
+    var m = location.hash.match(/^#p(\d+)$/);
+    if (m) {
+      var idx = Math.min(TOTAL - 1, Math.max(0, parseInt(m[1], 10) - 1));
+      go(idx);
+    }
+  });
+
+  /* 初始定位 */
+  var m = location.hash.match(/^#p(\d+)$/);
+  var init = m ? Math.min(TOTAL - 1, Math.max(0, parseInt(m[1], 10) - 1)) : 0;
+  go(init);
+
+  /* ===== 页内交互 ===== */
+
+  /* 时间轴节点 */
+  Array.prototype.forEach.call(document.querySelectorAll(".t-node"), function(n){
+    n.addEventListener("click", function(){
+      var open = n.classList.contains("open");
+      Array.prototype.forEach.call(n.parentNode.children, function(c){ c.classList.remove("open"); });
+      if (!open) n.classList.add("open");
+    });
+  });
+
+  /* 信纸展开 */
+  var letter = document.getElementById("letter");
+  letter.addEventListener("click", function(){ letter.classList.toggle("open"); });
+
+  /* 关键词卡片 */
+  Array.prototype.forEach.call(document.querySelectorAll(".kw"), function(k){
+    k.addEventListener("click", function(){
+      var open = k.classList.contains("open");
+      Array.prototype.forEach.call(k.parentNode.children, function(c){ c.classList.remove("open"); });
+      if (!open) k.classList.add("open");
+    });
+  });
+
+  /* 封面粒子 */
+  var dustCount = window.innerWidth < 768 ? 12 : 20;
+  var p1 = document.getElementById("p1");
+  for (var i = 0; i < dustCount; i++) {
+    var d = document.createElement("span");
+    d.className = "dust";
+    var size = 2 + Math.random() * 3.5;
+    d.style.width = size + "px";
+    d.style.height = size + "px";
+    d.style.left = (8 + Math.random() * 84) + "%";
+    d.style.top = (45 + Math.random() * 45) + "%";
+    d.style.animationDuration = (8 + Math.random() * 7) + "s";
+    d.style.animationDelay = (Math.random() * 6) + "s";
+    p1.appendChild(d);
+  }
+})();
+</script>
+</body>
+</html>
